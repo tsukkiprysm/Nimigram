@@ -1,0 +1,29 @@
+:root {
+  --color-white: white;
+  --color-pink: #F2C0C1;
+  --color-blue: #BFC8D9;
+  --color-red: #6A0E01;
+}
+
+body {
+  margin: 0;
+}
+
+#landing-page-section {
+  height: 100dvh;
+  width: 100vw;
+  background: radial-gradient(164.12% 110.93% at 50% 50%, var(--color-pink) 17.31%, var(--color-blue) 49.52%, var(--color-white) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#landing-page-section p {
+  margin: 0;
+}
+
+#landing-page-section h1 {
+  color: var(--color-red);
+  font-weight: bold;
+}
