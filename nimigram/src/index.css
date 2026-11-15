@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+:root {
+    --color-white: white;
+    --color-pink: #F2C0C1;
+    --color-blue: #BFC8D9;
+    --color-red: #6A0E01;
+    --color-text: #1C1C1C;
+}
+
+body {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: var(--color-text);
+}
