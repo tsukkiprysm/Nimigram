@@ -1,29 +1,52 @@
 import {useState} from "react";
-import {Link, Links} from "react-router-dom";
+import Welcome from "../components/landingPageComponents/Welcome.jsx";
+import Introduction from "../components/landingPageComponents/Introduction.jsx";
+import Login from "../components/landingPageComponents/Login.jsx";
+import CreateAccount from "../components/landingPageComponents/CreateAccount.jsx";
+import {useAuth} from "../authContext/AuthContext.jsx";
+import {Navigate} from "react-router-dom";
+import CompleteProfile from "../components/landingPageComponents/CompleteProfile.jsx";
 
 function LandingPage() {
-    const [display, setDisplay] = useState("hide");
+    const {userLoggedIn, userProfile, profileLoading} = useAuth();
 
-    const showSection = () => {
-        setDisplay(display === "hide" ? "show" : "hide");
+    //console.log('UserProfile lp: ' + userProfile);
+    //console.log('ProfileLoading lp: ' + profileLoading);
+    //console.log('UserLoggedIn lp: ' + userLoggedIn);
+
+    //content salvo como string para depois ser usado para a comparação do switch
+    const [content, setContent] = useState('welcome');
+
+    //função renderContent que usa um switch para decidir qual componente mostrar
+    const renderContent = () => {
+        if(userLoggedIn && !profileLoading && !userProfile) {
+            return <CompleteProfile/>
+        }
+
+        switch (content) {
+            case 'welcome':
+                return <Welcome intro={() => setContent('introduction')}/>
+            case 'introduction':
+                return <Introduction
+                            login={() => setContent('login')}
+                            create={() => setContent('create')}/>
+            case 'login':
+                return <Login/>
+            case 'create':
+                return <CreateAccount/>
+            default:
+                return null;
+        }
     }
 
     return(
-        <section id={"landing-page-section"}>
-            <div style={display === "show" ? { display: "none" } : {}}>
-                <p>Bem-vindo(a) ao</p>
-                <h1>Nimigram</h1>
-                <button onClick={showSection}>Vamos começar</button>
-            </div>
-            <div style={display === "hide" ? { display: "none" } : {}}>
-                <p>
-                    O Nimigram é uma alternativa ao imediatismo social da vida moderna. Aqui, adotamos um meio tradicional de comunicação à distância, e o reconfiguramos para o meio digital.
-                </p>
-                <Link to={'/dashboard'}>
-                    <button>Entrar com o Google</button>
-                </Link>
-            </div>
-        </section>
+        <>
+            {/*Manda o utilizador para o dashboard caso já esteja logado e tenha perfil*/}
+            {userLoggedIn && userProfile && (<Navigate to={'/dashboard'} replace={true}/>)}
+            <section id={'landing-page-section'}>
+                {renderContent()}
+            </section>
+        </>
     );
 }
 

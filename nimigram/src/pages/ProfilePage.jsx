@@ -1,15 +1,17 @@
 import pfp1 from '../assets/pfp1.jpg'
-import Navbar from "../components/Navbar.jsx";
-import {useState} from "react";
-import UserMail from "../components/UserMail.jsx";
-import UserSentMail from "../components/UserSentMail.jsx";
-import UserFriends from "../components/UserFriends.jsx";
 import arrowBack from "../assets/arrow_back.svg"
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
+import {useAuth} from "../authContext/AuthContext.jsx";
+import {logout} from "../firebase/auth.js";
 
 function ProfilePage(user) {
+    const {userLoggedIn, userProfile} = useAuth();
+
+    console.log(userProfile)
+
     return(
         <>
+            {!userLoggedIn && <Navigate to={'/'}></Navigate>}
             <section id={'profile-page'}>
                 <div style={{position: 'absolute'}}>
                     <Link to={'/dashboard'}>
@@ -18,15 +20,13 @@ function ProfilePage(user) {
                 </div>
                 <div id={'profile-page-content'}>
                     <img src={pfp1} alt={'Profile Picture'}/>
-                    <h1>User name</h1>
-                    <p>@useridentifier</p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque enim eros, auctor sed ligula vel, congue auctor sem.
-                    </p>
+                    <h1>{userProfile && userProfile.name}</h1>
+                    <p>{userProfile && userProfile.username}</p>
+                    <p>{userProfile && userProfile.bio}</p>
                     <hr></hr>
                     <button>Editar perfil</button>
                     <button>Compartilhar perfil</button>
-                    <button>Sair</button>
+                    <button onClick={logout}>Sair</button>
                 </div>
             </section>
         </>

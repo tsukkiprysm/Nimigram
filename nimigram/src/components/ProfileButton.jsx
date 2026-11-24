@@ -10,11 +10,9 @@ function ProfileButton(props) {
     }
 
     return(
-        <div id={'profile-button'} style={{display: props.disp}}>
-            <Link to={'/perfil'}>
-                <img src={pfp1} alt={'Profile Picture'}/>
-            </Link>
-        </div>
+        <Link to={'/perfil'}>
+            <img src={pfp1} alt={'Profile Picture'} className={'profile-button-nav'}/>
+        </Link>
     );
 }
 

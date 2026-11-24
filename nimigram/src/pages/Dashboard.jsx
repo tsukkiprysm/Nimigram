@@ -1,36 +1,48 @@
 import ProfileButton from "../components/ProfileButton.jsx";
-import DashboardListing from "../components/DashboardListing.jsx";
+import DashboardListing from "../components/dashboardComponents/DashboardListing.jsx";
 import Navbar from "../components/Navbar.jsx";
-import {useEffect, useState} from "react";
-import UserMail from "../components/UserMail.jsx";
-import UserSentMail from "../components/UserSentMail.jsx";
-import UserFriends from "../components/UserFriends.jsx";
+import {useEffect, useState, ViewTransition, startTransition} from "react";
+import UserMail from "../components/dashboardComponents/UserMail.jsx";
+import UserSentMail from "../components/dashboardComponents/UserSentMail.jsx";
+import UserFriends from "../components/dashboardComponents/UserFriends.jsx";
+import useIsMobile from "../components/useIsMobile.js";
 
 export default function Dashboard() {
     const [list, setList] = useState(<UserMail/>);
     const [listName, setListName] = useState("Meu correio");
+    const isMobile = useIsMobile();
 
     const handleChangeToUserMail = () => {
-        setList(l => <UserMail/>);
-        setListName(ln => "Meu correio");
+        startTransition(() => {
+            setList(l => <UserMail/>);
+            setListName(ln => "Meu correio");
+        })
     }
 
     const handleChangeToUserSentMail = () => {
-        setList(l => <UserSentMail/>);
-        setListName(ln => "Meu correio enviado");
+        startTransition(() => {
+            setList(l => <UserSentMail/>);
+            setListName(ln => "Meu correio enviado");
+        })
     }
 
     const handleChangeToUserFriends = () => {
-        setList(l => <UserFriends/>);
-        setListName(ln => "Meus amigos");
+        startTransition(() => {
+            setList(l => <UserFriends/>);
+            setListName(ln => "Meus amigos");
+        })
     }
 
     return(
         <main id={'dashboard'}>
-            <ProfileButton/>
-            <DashboardListing
-                list={list}
-                listName={listName}/>
+            {isMobile && <div id={'profile-button'}>
+                            <ProfileButton/>
+                         </div>}
+            <ViewTransition>
+                <DashboardListing
+                    list={list}
+                    listName={listName}/>
+            </ViewTransition>
             <Navbar
                 mail={handleChangeToUserMail}
                 sent={handleChangeToUserSentMail}
