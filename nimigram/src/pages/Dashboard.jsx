@@ -35,7 +35,7 @@ export default function Dashboard() {
 
     return(
         <main id={'dashboard'}>
-            {isMobile && <div id={'profile-button'}>
+            {isMobile && <div className={'profile-button-container'}>
                             <ProfileButton/>
                          </div>}
             <ViewTransition>

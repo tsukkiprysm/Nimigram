@@ -1,6 +1,8 @@
 import Friends from '../assets/friends.svg'
 import Mail from '../assets/mail.svg'
 import Sent from '../assets/sent.svg'
+import Notifications from '../assets/notifications.svg'
+import NewLetter from '../assets/new_letter.svg'
 import ProfileButton from "./ProfileButton.jsx";
 import useIsMobile from "./useIsMobile.js";
 
@@ -21,6 +23,12 @@ function Navbar(props) {
             <button onClick={props.friends}>
                 <img src={Friends} alt={'friends-icon'}/>
             </button>
+            <button>
+                <img src={Notifications} alt={'friends-icon'}/>
+            </button>
+            {!isMobile && <button>
+                             <img src={NewLetter} alt={'friends-icon'}/>
+                          </button>}
         </div>
     );
 }

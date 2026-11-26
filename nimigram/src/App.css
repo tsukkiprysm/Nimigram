@@ -86,6 +86,7 @@
 
 #dashboard-listing {
   flex: 1;
+  position: relative;
 
   h1 {
     font-weight: normal;
@@ -107,12 +108,9 @@
   justify-content: space-between;
 
   button {
+    width: clamp(3rem, 10vw, 4rem);
     background-color: transparent;
     border-style: none;
-  }
-
-  img {
-    width: 3rem;
   }
 }
 
@@ -166,28 +164,37 @@
   }
 }
 
-#profile-button {
+.profile-button-container {
   text-align: right;
 
-  img {
+  button {
+    background-color: transparent;
+    border-style: none;
     width: clamp(4rem, 10%, 5rem);
+    padding: 0;
+  }
+
+  img {
     border-radius: 100%;
     border: 1.5px solid var(--color-red);
   }
 }
 
 .profile-button-nav {
-  width: clamp(4rem, 10%, 5rem);
+  width: 100%;
   border-radius: 100%;
   border: 1.5px solid var(--color-red);
 }
 
-.hide {
-  display: none;
-}
-
-.show {
-  display: block;
+.add-friend-button {
+  background-color: var(--color-white);
+  border-radius: 100rem;
+  border: 1.5px solid var(--color-red);
+  padding: 0.50rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 1.5rem;
 }
 
 @media (min-width: 640px) {
@@ -219,6 +226,10 @@
 
   #profile-page-content {
     padding: 0 clamp(4rem, 10%, 20rem);
+  }
+
+  .add-friend-button {
+    margin-bottom: 0;
   }
 }
 

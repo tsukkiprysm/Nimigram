@@ -12,6 +12,7 @@ export default function CompleteProfile() {
     const [error, setError] = useState('');
     const [isCreatingProfile, setIsCreatingProfile] = useState(false);
 
+    const USERNAME_REGEX = /^[a-z][a-z0-9_]{4,24}$/;
     const normalizeUsername = (username) => {
         return username.trim().toLowerCase();
     }
@@ -19,7 +20,6 @@ export default function CompleteProfile() {
         return USERNAME_REGEX.test(username);
     }
 
-    const USERNAME_REGEX = /^[a-z][a-z0-9_]{4,24}$/;
     const handleSubmit = async (e) => {
         if(isCreatingProfile) {
             return;
